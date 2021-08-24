@@ -13,6 +13,12 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
 
+/**
+ * REST service class
+ *
+ * @date 2021.08.24
+ * @author Junhee Park
+ */
 @Service
 public class RestService {
     @Value("${wowza_engine_server.uri}")
@@ -26,7 +32,13 @@ public class RestService {
 
     @Value("${wowza_engine_server.password}")
     private String REQUEST_PASSWORD;
-
+    /**
+     * Incoming stream 생성 메서드
+     *
+     * @param applicationName : 애플리케이션 명
+     * @param streamFileName : 스트림 파일 명
+     * @param mediaCasterType : 미디어 캐스터 타입 명 (스트림 파일의 포맷에 맞게 작성해야함. ex) applehls)
+     */
     public ResponseEntity createIncomingStream(String applicationName, String streamFileName, String mediaCasterType) {
 
         //HTTP request Header 정보 설정
@@ -46,9 +58,11 @@ public class RestService {
         //요청 -> XML 응답 -> String -> JSON 변환
         RestTemplate restTemplate = new RestTemplate();
         HttpEntity<HttpHeaders> entity = new HttpEntity<>(headers);
-        ResponseEntity<String> response = restTemplate.exchange(uri, HttpMethod.PUT, entity, String.class);
-        JSONObject jsonObject= new JSONObject(response.getBody());
-            IncomingStreamResponse incomingStreamResponse = new IncomingStreamResponse();
+
+        IncomingStreamResponse incomingStreamResponse = new IncomingStreamResponse();
+        try {
+            ResponseEntity<String> response = restTemplate.exchange(uri, HttpMethod.PUT, entity, String.class);
+            JSONObject jsonObject= new JSONObject(response.getBody());
             if (response.getStatusCode() == HttpStatus.OK) {
                 if((boolean)jsonObject.get("success")) {
                     incomingStreamResponse.setSuccess(true);
@@ -58,20 +72,29 @@ public class RestService {
                     incomingStreamResponse.setMessage("Stream service가 이미 실행중이거나, 미디어 타입이 잘못되었습니다.");
                 }
                 return ResponseEntity.status(HttpStatus.OK).body(incomingStreamResponse);
-            } else if (response.getStatusCode() == HttpStatus.NOT_FOUND) {
+            }
+        } catch (HttpStatusCodeException exception){
+            if (exception.getStatusCode() == HttpStatus.NOT_FOUND) {
                 incomingStreamResponse.setSuccess(false);
                 incomingStreamResponse.setMessage("Wowza engine에 Application 혹은 streamfile이 등록되어 있지 않습니다.");
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body(incomingStreamResponse);
-            } else if (response.getStatusCode() == HttpStatus.INTERNAL_SERVER_ERROR) {
+            } else if (exception.getStatusCode() == HttpStatus.INTERNAL_SERVER_ERROR) {
                 incomingStreamResponse.setSuccess(false);
                 incomingStreamResponse.setMessage("Wowza engine에서 알 수 없는 오류가 발생했습니다.");
                 return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(incomingStreamResponse);
             }
+
+        }
         incomingStreamResponse.setSuccess(false);
         incomingStreamResponse.setMessage("Engine controller에서 알 수 없는 오류가 발생했습니다.");
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(incomingStreamResponse);
     }
-
+    /**
+     * Incoming stream 삭제 메서드
+     *
+     * @param applicationName : 애플리케이션 명
+     * @param streamFileName : 스트림 파일 명
+     */
     public ResponseEntity deleteIncomingStream(String applicationName, String streamFileName) {
 
         //HTTP request Header 정보 설정

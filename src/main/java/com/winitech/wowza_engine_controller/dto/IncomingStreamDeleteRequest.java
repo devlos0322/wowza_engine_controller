@@ -5,11 +5,17 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
+/**
+ * Incoming stream delete request dto class
+ *
+ * @date 2021.08.24
+ * @author Junhee Park
+ */
 @Data
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
 public class IncomingStreamDeleteRequest {
-    private String application_name;
-    private String stream_file_name;
+    private String applicationName;
+    private String streamFileName;
 }
