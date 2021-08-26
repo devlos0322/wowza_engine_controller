@@ -31,7 +31,7 @@ Application은 동영상 스트리밍을 받기 위한 채널의 개념입니다
 
 ### 2.2. Stream file 생성
 Stream file 은 MPEG-TS 인코더 또는 IP 카메라와 같은 수집장치로부터 전달되는 영상 스트림을 식별하기 위한 파일입니다. \
- Stream file은 http://~/cctv2401.stream/playlist.m3u8, rtmp:/~/ch90.stream, rtsp://~/media.smp 등 다양한 URI를 포함할 수 있습니다.
+ Stream file은 http://exmaple.cm/cctv2401.stream/playlist.m3u8, rtmp:/example.cm/ch90.stream, rtsp://~/media.smp 등 다양한 URI를 포함할 수 있습니다.
 
 ### 2.3. Incoming stream 연결 
 Incoming stream은 Application과 Stream file을 연결시켜주는 역할을 합니다. 쉽게 말해서 영상 리소스와 영상 체널을 연결해 주는 것입니다. 
