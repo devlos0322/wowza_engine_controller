@@ -1,22 +1,19 @@
 # Wowza stream engine controller
 
----------------------------------------
-
+---
 Wowza stream engine에서 제공하는 REST API를 이용하여 incoming stream을 관리하는 서비스입니다. \
 서비스의 자원은 stream file과 incoming stream입니다. \
 Wowza stream engine의 stream file과 incoming stream연결을 쉽게 할 수 있도록 REST API를 지원합니다.
 
-
 # Wowza stream engine controller work flow
 
----------------------------------------
-
+---
 ## 1. Entity
 Wowza 기반 동영상 스트리밍 시스템은 Figure 1과 같이 4가지의 Entity간 통신으로 이루어집니다.
 * Client: 사용자가 스트리밍되는 동영상을 확인
 * Engine controller: 본 프로젝트의 구현체로써 Wowza engine의 Streaming 기능을 제어
 * Wowza engine: Wowza Media Systems에서 개발 한 통합 스트리밍 미디어 서버 소프트웨어 (https://www.wowza.com/)
-* VMS(Video Management system): 카메라 혹은 기타 장비로 부터 비디오를 수집하는 비디오 관리 시스템
+* VMS(Video Management system): 카메라 혹은 기타 장비에서 비디오를 수집하는 비디오 관리 시스템
 
 <p align="center"><img src="https://raw.githubusercontent.com/devlos0322/wowza_engine_controller/master/images/wowza_engine_controller_workflow.PNG"  width="60%"/></p>
 <p align="center">Figure 1 동영상 스트리밍 기능의 동작 방식</p>
@@ -224,6 +221,9 @@ BODY
 * applicationName: 미리 생성된 애플리케이션 이름
 * streamFileName: 미리 생성된 스트림 파일 이름
 * medeaCasterType: 스트림파일과 연결된 수집장치의 미디어 캐스터 타입
+
+
+  <p align="center">Table 1 Incoming stream에서 지원하는 media caster type</p>
 
   |Media caster type|설명|
   |:------:|---|
