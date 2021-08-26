@@ -254,8 +254,6 @@ public class RestService {
         IncomingStreamResponse incomingStreamResponse = new IncomingStreamResponse();
         try {
             ResponseEntity<String> response = restTemplate.exchange(uri, HttpMethod.DELETE, entity, String.class);
-            System.out.println(response.toString());
-            JSONObject jsonObject= new JSONObject(response.getBody());
             if (response.getStatusCode() == HttpStatus.OK) {
                 incomingStreamResponse.setSuccess(true);
                 incomingStreamResponse.setMessage(streamFileName + " (Stream file)이 정상적으로 삭제 되었습니다.");
@@ -360,8 +358,6 @@ public class RestService {
         IncomingStreamResponse incomingStreamResponse = new IncomingStreamResponse();
         try {
             ResponseEntity<String> response = restTemplate.exchange(uri, HttpMethod.PUT, entity, String.class);
-            System.out.println(response.toString());
-            JSONObject jsonObject= new JSONObject(response.getBody());
             if (response.getStatusCode() == HttpStatus.OK) {
                 incomingStreamResponse.setSuccess(true);
                 incomingStreamResponse.setMessage("Stream service가 정상적으로 중지 되었습니다.");
