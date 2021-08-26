@@ -30,7 +30,7 @@ Wowza engine에 완료 되었다는 가정하에 사용이 가능합니다.)
 #### 2.1. Application 생성
 Application은 동영상 스트리밍을 받기 위한 채널의 개념입니다. 미디어 서버의 여러 고객을 대상으로 분리된 체널을 만들어줍니다. 스트리밍을 받기 위해서는 Application 생성이 우선되어야 합니다.
 
-#### 2.2. Stream file 등록
+#### 2.2. Stream file 생성
 Stream file 은 MPEG-TS 인코더 또는 IP 카메라와 같은 수집장치로부터 전달되는 영상 스트림을 식별하기 위한 파일입니다. \
  Stream file은 http://~/cctv2401.stream/playlist.m3u8, rtmp:/~/ch90.stream, rtsp://~/media.smp 등 다양한 URI를 포함할 수 있습니다.
 
@@ -64,10 +64,10 @@ Incoming stream을 추가하기 위해서 다음의 파라메터를 사용합니
   |:------:|---|
   | rtp               | RTSP/RTP stream을 지원하는 IP camera stream 혹은 native RTP, MPEG-TS encoder 용 (ex. ~.stream) |
   | rtp-record        | RTSP/RTP stream 녹화용 |
-  | shoutcast         | SHOUTcast/Icecast streams 용 |
+  | shoutcast         | SHOUTcast/Icecast streams용 |
   | shoutcast-record  | SHOUTcast/Icecast streams 녹화용 |
-  | applehls          | HLS(HTTP Live Streaming) stream 용 (ex. ~.m3u8) |
-  | mpegtstcp         | TCP/IP 상의 MPEG-TS encoder 기반 stream 용  |
+  | applehls          | HLS(HTTP Live Streaming) stream용 (ex. ~.m3u8) |
+  | mpegtstcp         | TCP/IP 상의 MPEG-TS encoder 기반 stream용  |
 
 더욱 자세한 내용은 아래의 링크를 참고하세요. \
 https://www.wowza.com/docs/wowza-streaming-engine-product-articles
