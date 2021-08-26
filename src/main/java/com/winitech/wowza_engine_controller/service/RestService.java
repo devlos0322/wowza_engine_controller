@@ -310,10 +310,10 @@ public class RestService {
             if (response.getStatusCode() == HttpStatus.OK) {
                 if((boolean)jsonObject.get("success")) {
                     incomingStreamResponse.setSuccess(true);
-                    incomingStreamResponse.setMessage("Stream service가 정상적으로 실행 되었습니다.");
+                    incomingStreamResponse.setMessage("Incoming stream이 정상적으로 연결 되었습니다.");
                 } else {
                     incomingStreamResponse.setSuccess(false);
-                    incomingStreamResponse.setMessage("Stream service가 이미 실행중이거나, 미디어 타입이 잘못되었습니다.");
+                    incomingStreamResponse.setMessage("Incoming stream이 이미 연결 되어 있거나, 미디어 캐스트 타입이 잘못되었습니다.");
                 }
                 return ResponseEntity.status(HttpStatus.OK).body(incomingStreamResponse);
             }
@@ -360,7 +360,7 @@ public class RestService {
             ResponseEntity<String> response = restTemplate.exchange(uri, HttpMethod.PUT, entity, String.class);
             if (response.getStatusCode() == HttpStatus.OK) {
                 incomingStreamResponse.setSuccess(true);
-                incomingStreamResponse.setMessage("Stream service가 정상적으로 중지 되었습니다.");
+                incomingStreamResponse.setMessage("Incoming stream이 정상적으로 연결 해제 되었습니다.");
                 return ResponseEntity.status(HttpStatus.OK).body(incomingStreamResponse);
             }
         } catch (HttpStatusCodeException exception){
