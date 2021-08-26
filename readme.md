@@ -41,7 +41,9 @@ Engine controller는 Client와 Wowza engine의 중간에서 stream file과 incom
 ---
 
 ## 1. Overview
-구현체의 API를 사용하기 위해서 CURL 혹은 Postman을 사용할때는 다음 옵션을 사용하셔야 합니다.
+구현체의 REST API를 사용하기 위해서 CURL 혹은 Postman을 사용할때는 다음 옵션을 사용하셔야 합니다.
+
+  <p align="center">Table 1 Engine controller REST API 기본 정보</p>
 
 |공통 속성|속성값|설명|
 |:------:|---|--------|
@@ -220,10 +222,10 @@ BODY
 ```
 * applicationName: 미리 생성된 애플리케이션 이름
 * streamFileName: 미리 생성된 스트림 파일 이름
-* medeaCasterType: 스트림파일과 연결된 수집장치의 미디어 캐스터 타입 (Table 1 참고)
+* medeaCasterType: 스트림파일과 연결된 수집장치의 미디어 캐스터 타입 (Table 2 참고)
 
 
-  <p align="center">Table 1 Incoming stream에서 지원하는 미디어 캐스터 타입</p>
+  <p align="center">Table 2 Incoming stream에서 지원하는 미디어 캐스터 타입</p>
 
   |Media caster type|설명|
   |:------:|---|
