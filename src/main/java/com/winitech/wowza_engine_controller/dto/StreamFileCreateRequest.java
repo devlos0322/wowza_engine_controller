@@ -6,15 +6,17 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 /**
- * Incoming stream create request dto class
+ * Stream file create request dto class
  *
- * @date 2021.08.24
+ * @date 2021.08.25
  * @author Junhee Park
  */
+
 @Data
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
-public class IncomingStreamCreateRequest {
-    private String mediaCasterType;
+public class StreamFileCreateRequest {
+    private String streamFileName;
+    private String resourceUri;
 }

@@ -6,16 +6,16 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 /**
- * Incoming stream delete request dto class
+ * Incoming stream response dto class
  *
  * @date 2021.08.24
  * @author Junhee Park
  */
-@Data
-@ToString
 @NoArgsConstructor
 @AllArgsConstructor
-public class IncomingStreamDeleteRequest {
-    private String applicationName;
-    private String streamFileName;
+@Data
+@ToString
+public class StreamFileRsponse {
+    private Boolean success;
+    private String message;
 }

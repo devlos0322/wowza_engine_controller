@@ -2,7 +2,7 @@ package com.winitech.wowza_engine_controller.controller;
 
 
 import com.winitech.wowza_engine_controller.dto.IncomingStreamCreateRequest;
-import com.winitech.wowza_engine_controller.dto.IncomingStreamDeleteRequest;
+import com.winitech.wowza_engine_controller.dto.StreamFileCreateRequest;
 import com.winitech.wowza_engine_controller.service.RestService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -25,17 +25,36 @@ public class ApiController {
         this.restService = restService;
     }
 
-    @PostMapping("/incoming_stream")
-    public ResponseEntity createIncomingStream(@RequestBody IncomingStreamCreateRequest incomingStreamCreateRequest) {
-        return this.restService.createIncomingStream(incomingStreamCreateRequest.getApplicationName(),
-                incomingStreamCreateRequest.getStreamFileName(),
-                incomingStreamCreateRequest.getMediaCasterType());
+    @PostMapping("/applications/{applicationName}/stream_files")
+    public ResponseEntity createStreamFile(@PathVariable(value = "applicationName") String applicationName, @RequestBody StreamFileCreateRequest streamFileCreateRequest) {
+        return this.restService.createStreamFile(applicationName, streamFileCreateRequest.getStreamFileName(), streamFileCreateRequest.getResourceUri());
     }
 
+    @GetMapping("/applications/{applicationName}/stream_files")
+    public ResponseEntity getAllStreamFiles(@PathVariable(value = "applicationName") String applicationName) {
+        return this.restService.getAllStreamFiles(applicationName);
+    }
 
-    @DeleteMapping("/incoming_stream")
-    public ResponseEntity deleteIncomingStream(@RequestBody IncomingStreamDeleteRequest incomingStreamDeleteRequest) {
-        return this.restService.deleteIncomingStream(incomingStreamDeleteRequest.getApplicationName(),
-                incomingStreamDeleteRequest.getStreamFileName());
+    @GetMapping("/applications/{applicationName}/stream_files/{streamFileName}")
+    public ResponseEntity getStreamFile(@PathVariable(value = "applicationName") String applicationName, @PathVariable(value = "streamFileName") String streamFileName) {
+        return this.restService.getStreamFile(applicationName, streamFileName);
+    }
+
+    @DeleteMapping("/applications/{applicationName}/stream_files/{streamFileName}")
+    public ResponseEntity deleteStreamFile(@PathVariable(value = "applicationName") String applicationName, @PathVariable(value = "streamFileName") String streamFileName) {
+        return this.restService.deleteStreamFile(applicationName, streamFileName);
+    }
+
+    @PutMapping("/applications/{applicationName}/stream_files/{streamFileName}/actions/connect")
+    public ResponseEntity createIncomingStream(@PathVariable(value ="applicationName") String applicationName,
+                                               @PathVariable(value="streamFileName") String streamFileName,
+                                               @RequestBody IncomingStreamCreateRequest incomingStreamCreateRequest) {
+        return this.restService.createIncomingStream(applicationName, streamFileName, incomingStreamCreateRequest.getMediaCasterType());
+    }
+
+    @PutMapping("/applications/{applicationName}/stream_files/{streamFileName}/actions/disconnect")
+    public ResponseEntity deleteIncomingStream(@PathVariable(value ="applicationName") String applicationName,
+                                               @PathVariable(value="streamFileName") String streamFileName) {
+        return this.restService.deleteIncomingStream(applicationName, streamFileName);
     }
 }
