@@ -33,15 +33,15 @@ Application은 동영상 스트리밍을 받기 위한 채널의 개념입니다
 Stream file 은 MPEG-TS 인코더 또는 IP 카메라와 같은 수집장치로부터 전달되는 영상 스트림을 식별하기 위한 파일입니다. \
  Stream file은 http://~/cctv2401.stream/playlist.m3u8, rtmp:/~/ch90.stream, rtsp://~/media.smp 등 다양한 URI를 포함할 수 있습니다.
 
-### 2.3. Incoming stream 생성 
+### 2.3. Incoming stream 연결 
 Incoming stream은 Application과 Stream file을 연결시켜주는 역할을 합니다. 쉽게 말해서 영상 리소스와 영상 체널을 연결해 주는 것입니다. 
 
 ## 3. Engine controller의 역할
 Engine controller는 Client와 Wowza engine의 중간에서 stream file과 incoming stream을 관리하기 쉽도록 REST API를 제공합니다.
 
-## API 설명
+# API 설명
 
----------------------------------------
+---
 
 ## 1. Overview
 구현체의 API를 사용하기 위해서 CURL 혹은 Postman을 사용할때는 다음 옵션을 사용하셔야 합니다.
@@ -53,18 +53,18 @@ Engine controller는 Client와 Wowza engine의 중간에서 stream file과 incom
 | Header Option |Content-Type: application/json |                         |
 | Authorization |-                              | Engine contoller <-> Wowza engine (Basic auth)  |
 
-## 2. REST API 기능
+## 2. Engine controller REST API
 ### 2.1. Stream file management
 #### 2.1.1. stream file 생성
 Stream file을 생성하기 위해서 아래와 같이 호출합니다.
 
-POST | /applications/{application name}/stream_files
+POST /applications/{applicationName}/stream_files
 
 BODY
 ```
 {
-    "streamFileName": {stream file name},
-    "resourceUri": {resouce uri}
+    "streamFileName": {streamFileName},
+    "resourceUri": {resouceUri}
 }
 ```
 * applicationName: 미리 생성된 애플리케이션 이름
@@ -79,7 +79,7 @@ curl -i --location --request POST 'http://localhost:8080/api/applications/rnd_te
 --header 'Content-Type: application/json' \
 --data-raw '{
     "streamFileName": "rnd_test_stream_file",
-    "resourceUri": "http://210.91.152.35:1935/live1/_definst_/ch8.stream/playlist.m3u8"
+    "resourceUri": "http://example.com/live1/_definst_/ch8.stream/playlist.m3u8"
 }'
 ```
 * Response
@@ -98,12 +98,13 @@ Date: Thu, 26 Aug 2021 01:36:29 GMT
 #### 2.1.2. stream file 전체 조회
 Wowza engine에 등록된 전체 stream file하기 위해서 아래와 같이 호출합니다.
 
-GET | /applications/{application name}/stream_files
+GET /applications/{applicationName}/stream_files
 
 BODY
 ```
 
 ```
+* applicationName: 미리 생성된 애플리케이션 이름
 
 Example
 
@@ -138,12 +139,14 @@ Date: Thu, 26 Aug 2021 01:41:11 GMT
 #### 2.1.3. Stream file명을 이용한  개별 조회
 Wowza engine에 등록된 전체 stream file하기 위해서 아래와 같이 호출합니다.
 
-GET | /applications/{application name}/stream_files/{steam file name}
+GET /applications/{applicationName}/stream_files/{steam file name}
 
 BODY
 ```
 
 ```
+* applicationName: 미리 생성된 애플리케이션 이름
+* streamFileName: 미리 생성된 스트림 파일 이름
 
 Example
 
@@ -169,13 +172,13 @@ Date: Thu, 26 Aug 2021 01:46:14 GMT
 #### 2.1.4. Stream file 삭제
 Wowza engine에 등록된stream file을 삭제하기 위해서 아래와 같이 호출합니다.
 
-DELETE | /applications/{application name}/stream_files/{steam file name}
+DELETE /applications/{applicationName}/stream_files/{steam file name}
 
 BODY
 ```
 {
-    "applicationName": {application name},
-    "streamFileName": {stream file name}
+    "applicationName": {applicationName},
+    "streamFileName": {streamFileName}
 }
 ```
 * applicationName: 미리 생성된 애플리케이션 이름
@@ -210,12 +213,12 @@ Date: Thu, 26 Aug 2021 01:48:58 GMT
 #### 2.2.1. Incoming stream 연결
 Wowza engine에 Incoming stream을 연결하기 위해서 아래와 같이 호출합니다.
 
-PUT | /applications/{application name}/stream_files/{stream file name}/actions/connect
+PUT /applications/{applicationName}/stream_files/{streamFileName}/actions/connect
 
 BODY
 ```
 {
-    "mediaCasterType": {media caster type}
+    "mediaCasterType": {mediaCasterType}
 }
 ```
 * applicationName: 미리 생성된 애플리케이션 이름
@@ -232,8 +235,9 @@ BODY
   | applehls          | HLS(HTTP Live Streaming) stream용 (ex. ~.m3u8) |
   | mpegtstcp         | TCP/IP 상의 MPEG-TS encoder 기반 stream용  |
   | srt               | SRT stream용  |
+
   더욱 자세한 내용은 아래의 링크를 참고하세요. \
-https://www.wowza.com/docs/wowza-streaming-engine-product-articles
+  https://www.wowza.com/docs/wowza-streaming-engine-product-articles
 
 Example
 * Request
@@ -260,7 +264,7 @@ Date: Thu, 26 Aug 2021 02:03:00 GMT
 #### 2.2.1. Incoming stream 연결 해제
 Wowza engine에 연결된 incoming stream을 연결 해제하기 위해서 아래와 같이 호출합니다.
 
-PUT | /applications/{application name}/stream_files/{stream file name}/actions/disconnect
+PUT /applications/{applicationName}/stream_files/{streamFileName}/actions/disconnect
 
 BODY
 ```
