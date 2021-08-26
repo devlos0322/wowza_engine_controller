@@ -220,10 +220,10 @@ BODY
 ```
 * applicationName: 미리 생성된 애플리케이션 이름
 * streamFileName: 미리 생성된 스트림 파일 이름
-* medeaCasterType: 스트림파일과 연결된 수집장치의 미디어 캐스터 타입
+* medeaCasterType: 스트림파일과 연결된 수집장치의 미디어 캐스터 타입 (Table 1 참고)
 
 
-  <p align="center">Table 1 Incoming stream에서 지원하는 media caster type</p>
+  <p align="center">Table 1 Incoming stream에서 지원하는 미디어 캐스터 타입</p>
 
   |Media caster type|설명|
   |:------:|---|
